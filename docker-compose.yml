@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  api:
+    image: go-api-example
+    build:
+      context: .
+    environment:
+      - PORT=80
+      - MONGODB_HOST=mongodb://root:password@mongo-db:27017
+      - MONGODB_DATABASE=go-api
+    ports:
+      - '8080:80'
+
+  mongo-db:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+
